@@ -56,7 +56,7 @@ class SearchResult
   def description
     description = result["description"]
     if description.present?
-      description
+      description.truncate(215, :separator => " ")
     else
       case result["format"]
       when "specialist_sector"

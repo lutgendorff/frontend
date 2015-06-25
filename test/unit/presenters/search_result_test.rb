@@ -16,6 +16,18 @@ class SearchResultTest < ActiveSupport::TestCase
     assert_nil result.description
   end
 
+  should "truncate descriptions to a maximum of 215 characters" do
+    result = SearchResult.new(SearchParameters.new({}),
+                              "description" => "Long description is long "*100)
+    assert(result.description.length <= 215)
+  end
+
+  should "end the description with ellipsis if truncated" do
+    result = SearchResult.new(SearchParameters.new({}),
+                              "description" => "Long description is long "*100)
+    assert result.description.end_with?("...")
+  end
+
   should "report when no examples are present" do
     result = SearchResult.new(SearchParameters.new({}), "description" => "I like pie").to_hash
     assert_equal false, result[:examples_present?]

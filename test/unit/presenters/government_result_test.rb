@@ -20,6 +20,18 @@ offering...}
     assert_equal truncated_description, result.description
   end
 
+  should "truncate descriptions to a maximum of 215 characters" do
+    result = GovernmentResult.new(SearchParameters.new({}),
+                                  "description" => "Long description is long "*100)
+    assert(result.description.length <= 215)
+  end
+
+  should "end the description with ellipsis if truncated" do
+    result = GovernmentResult.new(SearchParameters.new({}),
+                                  "description" => "Long description is long "*100)
+    assert result.description.end_with?('...')
+  end
+
   should "report a lack of location field as no locations" do
     result = GovernmentResult.new(SearchParameters.new({}), {})
     assert result.metadata.empty?
