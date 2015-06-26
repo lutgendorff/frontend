@@ -1,3 +1,4 @@
+# coding: utf-8
 require_relative "../../test_helper"
 
 class GovernmentResultTest < ActiveSupport::TestCase
@@ -15,7 +16,7 @@ delivery of public services."}
     truncated_description = %Q{You asked me to oversee a strategic review of
 Directgov and to report to you by the end of September. I have undertaken this
 review in the context of my wider remit as UK Digital Champion which includes
-offering...}
+offering…}
     result = GovernmentResult.new(SearchParameters.new({}), "description" => long_description)
     assert_equal truncated_description, result.description
   end
@@ -29,7 +30,7 @@ offering...}
   should "end the description with ellipsis if truncated" do
     result = GovernmentResult.new(SearchParameters.new({}),
                                   "description" => "Long description is long "*100)
-    assert result.description.end_with?('...')
+    assert result.description.end_with?('…')
   end
 
   should "report a lack of location field as no locations" do

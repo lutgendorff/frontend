@@ -1,3 +1,4 @@
+# coding: utf-8
 require_relative "../../test_helper"
 
 class SearchResultTest < ActiveSupport::TestCase
@@ -25,7 +26,7 @@ class SearchResultTest < ActiveSupport::TestCase
   should "end the description with ellipsis if truncated" do
     result = SearchResult.new(SearchParameters.new({}),
                               "description" => "Long description is long "*100)
-    assert result.description.end_with?("...")
+    assert result.description.end_with?('…')
   end
 
   should "report when no examples are present" do
